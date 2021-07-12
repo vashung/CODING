@@ -1,11 +1,23 @@
 // Given two sequence, Find, the length(); of the longest subsequence present in both of them.
-//   SUbsequence: Sequence that appear in the same relative order not necessarily contigous.
+// SUbsequence: Sequence that appear in the same relative order not necessarily contigous.
  //eg. abcdefg : abc, abg, bdf, aeg, acefg ...
 //
 #include<bits/stdc++.h>
 using namespace std;
 
-//return lenth
+/*
+  The given function is a general recursive approach and its Time Complexity is O(2^n)
+  It returns the longest common subsequence length 
+  
+  This approach checks the string of X and Y; 
+  X = A B  C  B D A B
+  Y =   BD CA B   A
+  
+  Three cases arise
+  1. if X[i] = Y[j]  :  LCS(i+1, j+1) + 1;   if the character of X and Y are same increment the count and recurse both 
+  2. if X[i] != Y[j] : LCS(i+1, j);
+  3. if X[i] != Y[j] : LCS(i, j+1);
+*/
 int LCS(string X, string Y, int m , int n)
 {
     if(m== 0 || n == 0)return 0;
@@ -22,7 +34,16 @@ string lcs(string X, string Y, int m , int n)
     return max(lcs(X,Y,m-1,n),lcs(X,Y,m, n-1));
 }
 
-// Using DP 
+/*
+  This approach is Using Dynamic Programming
+  An Approach improve from the recursive function
+  This is top Down approach which use memoization
+  
+  Time Complexity : O(n*m);
+  
+  Instead of calculating repeatedly, it stores the result of every once calculated solution
+
+*/
 int lcsDP(string X, string Y, int m , int n, auto &mp)
 {
     if(m == 0 || n ==0) return 0;
